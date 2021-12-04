@@ -6,8 +6,6 @@ import time
 import board
 import busio
 import digitalio
-import psutil
-import os
 
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
@@ -55,7 +53,8 @@ while True:
     CPU = subprocess.check_output(cmd, shell = True )
     cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
     MemUsage = subprocess.check_output(cmd, shell = True )
-    Uptime = "Uptime : " + os.popen('uptime -p').read()[:-1]
+    cmd = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'"
+    Uptime = subprocess.check_output(cmd, shell = True )
     cmd = "vcgencmd measure_temp |cut -f 2 -d '='"
     temp = subprocess.check_output(cmd, shell = True )
 
