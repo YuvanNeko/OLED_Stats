@@ -51,7 +51,7 @@ while True:
     IP = subprocess.check_output(cmd, shell = True )
     cmd = "top -bn1 | grep load | awk '{printf \"CPU: %.2f\", $(NF-2)}'"
     CPU = subprocess.check_output(cmd, shell = True )
-    cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
+    cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3/1000,$2/1000,$3*100/$2 }'"
     MemUsage = subprocess.check_output(cmd, shell = True )
     cmd = "uptime -p"
     Uptime = subprocess.check_output(cmd, shell = True )
